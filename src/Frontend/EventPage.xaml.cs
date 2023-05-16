@@ -23,7 +23,6 @@ public partial class EventPage : ContentPage
     public EventPage()
     {
         InitializeComponent();
-        LoadPreviousWords();
     }
 
     public EventPage(Location location, bool solo) : this()
@@ -33,6 +32,7 @@ public partial class EventPage : ContentPage
 
         this.location = location;
         this.solo = solo;
+        LoadPreviousWords();
     }
 
     public EventPage(EventInfo ev) : this()
@@ -55,6 +55,7 @@ public partial class EventPage : ContentPage
         this.ageSwitch.IsToggled = ev.AgeIsExact;
 
         this.saveButton.Text = "Update";
+        LoadPreviousWords();
     }
 
     public string CreationTime {
@@ -182,5 +183,18 @@ public partial class EventPage : ContentPage
 
         myClothesCompEditor.AutocompletedWords = App.MyClothesCompletionWords.ToList();
         herClothesCompEditor.AutocompletedWords = App.HerClothesCompletionWords.ToList();
+        UpdateDebugTexts();
     }
+
+    void MyClothesCompEditorTextChanged(object sender, EventArgs e)
+    {
+        UpdateDebugTexts();
+    }
+
+    void UpdateDebugTexts()
+    {
+        AllWordsList.Text = JsonSerializer.Serialize(myClothesCompEditor.AutocompletedWords).ToString();
+        UsedWordsList.Text = JsonSerializer.Serialize(myClothesCompEditor.addedWords).ToString();
+    }
+
 }

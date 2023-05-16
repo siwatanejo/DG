@@ -19,7 +19,7 @@ public partial class CompletionReadyEditor : StackLayout
             filteredOptions = new List<string>(AutocompletedWords);
             BindableLayout.SetItemsSource(MultiplePickerList, filteredOptions);
         }
-        private get => (List<string>)GetValue(AutocompletedWordsProperty);
+        get => (List<string>)GetValue(AutocompletedWordsProperty);
     }
 
     public string Text {
@@ -31,13 +31,15 @@ public partial class CompletionReadyEditor : StackLayout
         get => (string)GetValue(TextProperty);
     }
 
+    public event EventHandler TextChanged;
+
     #endregion
 
     #region Private fields
 
     private List<string> filteredOptions = new List<string>();
     private Dictionary<string, List<string>> filteredOptionsHistory = new Dictionary<string, List<string>>();
-    private HashSet<string> addedWords = new HashSet<string>();
+    public HashSet<string> addedWords { get; set; } = new HashSet<string>();
 
     StringBuilder word = new StringBuilder();
 
@@ -76,7 +78,6 @@ public partial class CompletionReadyEditor : StackLayout
         }
 
         Text = MainEditor.Text;
-        MultiplePickerList.IsVisible = word.Length > 0;
         BindableLayout.SetItemsSource(MultiplePickerList, filteredOptions);
     }
 
@@ -102,6 +103,7 @@ public partial class CompletionReadyEditor : StackLayout
         addedWords.Add(selectedWord.ToLower());
         word.Clear();
         filteredOptionsHistory.Clear();
+        TextChanged.Invoke(this, EventArgs.Empty);
     }
 
     protected override void OnPropertyChanged(string propertyName = null)

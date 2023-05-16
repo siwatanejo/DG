@@ -10,7 +10,7 @@
         x:Name="MainEditor"
         AutoSize="TextChanges"
     />
-    <StackLayout x:Name="MultiplePickerList" IsVisible="False">
+    <StackLayout x:Name="MultiplePickerList" IsVisible="True">
         <BindableLayout.ItemTemplate>
             <DataTemplate>
                 <Label
