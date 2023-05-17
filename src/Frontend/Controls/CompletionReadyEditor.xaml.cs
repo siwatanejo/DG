@@ -25,7 +25,7 @@ public partial class CompletionReadyEditor : StackLayout
     public string Text {
         set {
             if (addedWords.Count == 0 && !string.IsNullOrWhiteSpace(value))
-                value.Split(' ').ToList().ForEach(x => addedWords.Add(x.ToLower()));
+                value.Split(' ').Where(x => x.Length > 1).ToList().ForEach(x => addedWords.Add(x.ToLower()));
             SetValue(TextProperty, value);
         }
         get => (string)GetValue(TextProperty);
@@ -50,7 +50,7 @@ public partial class CompletionReadyEditor : StackLayout
 
     #region Events
 
-    void MainEditor_TextChanged(object sender, TextChangedEventArgs eventArgs)
+    void MainEditorTextChanged(object sender, TextChangedEventArgs eventArgs)
     {
         if (eventArgs.NewTextValue.Length - 1 < 0 || eventArgs.NewTextValue[eventArgs.NewTextValue.Length - 1] == ' ')
         {
