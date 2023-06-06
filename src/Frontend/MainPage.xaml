@@ -21,7 +21,15 @@
     <FlyoutPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <ContentPage x:Name="Content" Title="DG!">
+                <ContentPage x:Name="Content">
+                    <NavigationPage.TitleView>
+                        <Label
+                            Text="DG!"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Start"
+                        />
+                    </NavigationPage.TitleView>
                     <ScrollView>
                         <Grid>
                             <Grid
