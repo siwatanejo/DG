@@ -5,8 +5,8 @@
     x:Class="Frontend.AdvancedModePage"
     Title="Advanced Mode Page"
 >
-    <Grid RowDefinitions="Auto,*,*,Auto" Margin="10">
-        <StackLayout Grid.Row="0">
+    <VerticalStackLayout Margin="10">
+        <StackLayout>
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Label Text="Status" VerticalTextAlignment="Center" />
                 <Switch
@@ -17,25 +17,12 @@
             </HorizontalStackLayout>
         </StackLayout>
 
-        <StackLayout Grid.Row="1">
-            <Label Text="Non events:" />
-            <Editor VerticalOptions="FillAndExpand" x:Name="NonEventsEditor" />
-        </StackLayout>
+        <Label Text="Non events:" />
+        <Editor AutoSize="Disabled" x:Name="NonEventsEditor" />
 
-        <StackLayout Grid.Row="2">
-            <Label Text="Events: " />
-            <Editor
-                AutoSize="TextChanges"
-                VerticalOptions="FillAndExpand"
-                x:Name="EventsEditor"
-            />
-        </StackLayout>
+        <Label Text="Events: " />
+        <Editor AutoSize="Disabled" x:Name="EventsEditor" />
 
-        <Button
-            Margin="0,10,0,0"
-            Grid.Row="3"
-            Clicked="SaveButtonClicked"
-            Text="Save"
-        />
-    </Grid>
+        <Button Margin="0,10,0,0" Clicked="SaveButtonClicked" Text="Save" />
+    </VerticalStackLayout>
 </ContentPage>

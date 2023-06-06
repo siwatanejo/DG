@@ -6,10 +6,14 @@ namespace Frontend;
 
 public partial class AdvancedModePage : ContentPage
 {
+    double screenHeightInDp = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
+
     public AdvancedModePage()
     {
         InitializeComponent();
         LoadEventsFiles();
+        NonEventsEditor.HeightRequest = screenHeightInDp * 0.32;
+        EventsEditor.HeightRequest = screenHeightInDp * 0.32;
     }
 
     void LoadEventsFiles()
