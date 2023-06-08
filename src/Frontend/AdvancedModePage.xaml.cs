@@ -157,6 +157,30 @@ public partial class AdvancedModePage : ContentPage
             LoadEventsFiles();
     }
 
+    async void CopyAllNonEventsClicked(object sender, EventArgs eventArgs)
+    {
+        await Clipboard.SetTextAsync(NonEventsEditor.Text);
+        await ChangeTextAndChangeBackAfterCoping(CopyAllNonEventsButton);
+    }
+
+    async void CopyAllEventsClicked(object sender, EventArgs eventArgs)
+    {
+        await Clipboard.SetTextAsync(EventsEditor.Text);
+        await ChangeTextAndChangeBackAfterCoping(CopyAllEventsButton);
+    }
+
+    async Task ChangeTextAndChangeBackAfterCoping(Button button)
+    {
+        string initialText = button.Text;
+        button.IsEnabled = false;
+        button.Text = "Copied";
+        await Task.Delay(TimeSpan.FromSeconds(2));
+        MainThread.BeginInvokeOnMainThread(() => {
+            button.Text = initialText;
+            button.IsEnabled = true;
+        });
+    }
+
     async Task DisplayContentIsNotJsonAlert()
     {
         await DisplayAlert("Error!", "Content is not Json!", "Ok");
