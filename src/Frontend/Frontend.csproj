@@ -34,7 +34,8 @@
 
 		<MauiIcon Condition="$(TargetFramework.Contains('-android'))" Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.png" Color="#512BD4" ForegroundScale="0.60" />
 		<MauiIcon Condition="!$(TargetFramework.Contains('-android'))" Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.png" Color="#512BD4" />
-		<MauiSplashScreen Include="Resources\Images\logo.png" Color="White" Resize="True" />
+		<MauiSplashScreen Condition="!$(TargetFramework.Contains('-ios'))" Include="Resources\Images\logo.png" Color="White" Resize="True" />
+		<MauiSplashScreen Condition="$(TargetFramework.Contains('-ios'))" Include="Resources\Images\logo_ios_splash_screen.png" Color="White" Resize="True" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
