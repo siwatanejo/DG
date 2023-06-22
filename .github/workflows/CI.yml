@@ -66,13 +66,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.100-preview.4.23260.5
 
       - name: Install Maui workload
         run: dotnet workload install maui
 
       - name: Build Frontend (Android)
-        run: dotnet build src\Frontend\Frontend.csproj --framework net7.0-android
+        run: dotnet build src\Frontend\Frontend.csproj --framework net8.0-android
 
   build-macOS:
     name: (macOS) Build+Test Android+iOS Frontends & Backend
@@ -88,7 +88,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.100-preview.4.23260.5
 
       - name: Create DB
         run: |
@@ -116,10 +116,10 @@ jobs:
         run: dotnet workload install maui
 
       - name: Build Frontend (Android)
-        run: dotnet build src/Frontend/Frontend.csproj --framework net7.0-android
+        run: dotnet build src/Frontend/Frontend.csproj --framework net8.0-android
 
       - name: Build Frontend (iOS)
-        run: dotnet build src/Frontend/Frontend.csproj --framework net7.0-ios
+        run: dotnet build src/Frontend/Frontend.csproj --framework net8.0-ios
   
   build-linux-frontend-android:
     name: (Linux) Build Android Frontend
@@ -143,9 +143,9 @@ jobs:
           submodules: recursive
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.100-preview.4.23260.5
 
       # commented out because bump.fsx is based on stable(even) vs unstable(odd) numbers
       # while this sanity check requires version numbers in sequence (for upcoming blue+green
@@ -160,7 +160,7 @@ jobs:
       - name: Build Frontend (Android)
         run: |
           sudo dotnet build src/Frontend/Frontend.csproj \
-            --framework net7.0-android \
+            --framework net8.0-android \
             --configuration Debug \
             -p:AndroidSdkDirectory=/usr/local/lib/android/sdk \
             -p:AndroidOnly=true
@@ -169,7 +169,7 @@ jobs:
         if: ${{ steps.secret-check.outputs.available == 'true' }}
         run: |
           sudo dotnet publish src/Frontend/Frontend.csproj \
-            --framework net7.0-android \
+            --framework net8.0-android \
             --configuration Release \
             -p:AndroidSdkDirectory=/usr/local/lib/android/sdk \
             -p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" \
@@ -179,13 +179,13 @@ jobs:
       # Upload artifact fails with "permission denied" error without this
       - name: Fix permissions
         if: ${{ steps.secret-check.outputs.available == 'true' }}
-        run: sudo chmod -R 755 src/Frontend/bin/Release/net7.0-android/publish
+        run: sudo chmod -R 755 src/Frontend/bin/Release/net8.0-android/publish
 
       - uses: actions/upload-artifact@v3
         if: ${{ steps.secret-check.outputs.available == 'true' }}
         with:
           name: publishedPackages
-          path: src/Frontend/bin/Release/net7.0-android/publish
+          path: src/Frontend/bin/Release/net8.0-android/publish
 
       # NOTE: if this step fails with "Resource not accessible by integration" then adjust permissions
       # according to https://stackoverflow.com/a/75250838/1623521
@@ -205,7 +205,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: src/Frontend/bin/Release/net7.0-android/publish/com.nodeffect.dg-Signed.apk
+          asset_path: src/Frontend/bin/Release/net8.0-android/publish/com.nodeffect.dg-Signed.apk
           asset_name: com.nodeffect.dg-Signed.apk
           asset_content_type: application/vnd.android.package-archive
 
