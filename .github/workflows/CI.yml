@@ -259,7 +259,7 @@ jobs:
 
   # NOTE: if this step doesn't work, see https://stackoverflow.com/a/75250838/1623521
   delete-old-artifacts-and-release-assets:
-    name: Delete artifacts from the previous commit old and release assets
+    name: Delete artifacts from previous commit and old release assets
     needs:
     - build-linux-backend
     - build-linux-frontend-android
@@ -272,7 +272,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Delete artifacts
+      - name: Delete artifacts from previous commit
         run: ./scripts/delete_artifacts_from_previous_commit.fsx
       - name: Delete release assets from tags older than the 2 newest ones
         run: ./scripts/delete_assets_from_old_releases.fsx
