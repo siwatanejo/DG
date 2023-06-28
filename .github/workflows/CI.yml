@@ -2,6 +2,9 @@ name: CI
 
 on: [push, pull_request]
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   conventions:
     name: Check style & commit msg conventions
@@ -122,8 +125,6 @@ jobs:
     name: (Linux) Build Android Frontend
     needs: conventions
     runs-on: ubuntu-22.04
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check for Secret availability
         id: secret-check
@@ -214,9 +215,6 @@ jobs:
     runs-on: ubuntu-22.04
     container:
       image: "ubuntu:22.04"
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     steps:
 
       # beware about using v2 because https://github.com/actions/checkout/issues/100
@@ -266,8 +264,6 @@ jobs:
     - build-windows
     - build-macOS
     runs-on: ubuntu-22.04
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
         with:
