@@ -103,15 +103,6 @@ jobs:
           /usr/local/opt/postgresql@14/bin/psql -d runintomedb -a -q -f db/createDBCommands.sql
           /usr/local/opt/postgresql@14/bin/psql -d postgres -c "ALTER USER postgres WITH PASSWORD 'localDevPassword';"
 
-      - name: Build backend
-        run: |
-          mkdir packages
-          dotnet restore backend.slnf
-          dotnet build backend.slnf
-
-      - name: Run tests
-        run: dotnet test tests/Backend.Tests
-
       - name: Install Maui workload
         run: dotnet workload install maui
 
@@ -120,6 +111,15 @@ jobs:
 
       - name: Build Frontend (iOS)
         run: dotnet build src/Frontend/Frontend.csproj --framework net7.0-ios
+
+      - name: Build backend
+        run: |
+          dotnet restore backend.slnf
+          dotnet build backend.slnf
+
+      - name: Run tests
+        run: dotnet test tests/Backend.Tests
+
   
   build-linux-frontend-android:
     name: (Linux) Build Android Frontend
