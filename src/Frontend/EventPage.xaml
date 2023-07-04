@@ -17,34 +17,41 @@
                 FontSize="Title"
             />
         </StackLayout>
-        <StackLayout Margin="0" Padding="0" Orientation="Horizontal">
-            <Label
-                VerticalOptions="Center"
-                HorizontalTextAlignment="Start"
-                Text="Race: "
-            />
-            <Picker
-                Title="(Tap to choose one)"
-                VerticalOptions="Center"
-                ItemsSource="{Binding Races}"
-                x:Name="racePicker"
-                SelectedIndexChanged="RequiredInputWidgetChanged"
-            />
-        </StackLayout>
-        <StackLayout Margin="0" Padding="0" Orientation="Horizontal">
-            <Label
-                VerticalOptions="Center"
-                HorizontalTextAlignment="Start"
-                Text="Rate: "
-            />
-            <Picker
-                Title="(Tap)"
-                VerticalOptions="Center"
-                ItemsSource="{Binding Scores}"
-                x:Name="ratePicker"
-                SelectedIndexChanged="RequiredInputWidgetChanged"
-            />
-        </StackLayout>
+        <Grid ColumnDefinitions="*,Auto">
+            <StackLayout Margin="0" Padding="0" Orientation="Horizontal">
+                <Label
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Start"
+                    Text="Race: "
+                />
+                <Picker
+                    Title="(Tap to choose one)"
+                    VerticalOptions="Center"
+                    ItemsSource="{Binding Races}"
+                    x:Name="racePicker"
+                    SelectedIndexChanged="RequiredInputWidgetChanged"
+                />
+            </StackLayout>
+            <StackLayout
+                Grid.Column="1"
+                Margin="0"
+                Padding="0"
+                Orientation="Horizontal"
+            >
+                <Label
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Start"
+                    Text="Rate: "
+                />
+                <Picker
+                    Title="(Tap)"
+                    VerticalOptions="Center"
+                    ItemsSource="{Binding Scores}"
+                    x:Name="ratePicker"
+                    SelectedIndexChanged="RequiredInputWidgetChanged"
+                />
+            </StackLayout>
+        </Grid>
         <StackLayout>
             <Label Text="Appearance:" />
             <controls:CompletionReadyEditor
