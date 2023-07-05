@@ -1,4 +1,5 @@
 ﻿namespace Frontend;
+
 using ZXing.Net.Maui;
 using ZXing.Net.Maui.Controls;
 using Microsoft.Extensions.Configuration;
@@ -11,12 +12,14 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseBarcodeReader()
-            .ConfigureFonts(fonts => {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-            })
+#if !DEBUG
             .UseSentry(options => {
                 // The DSN is the only required setting.
                 options.Dsn = "https://5248e12f92b54298a28ce1aa02a1ff62@o86280.ingest.sentry.io/4505081436766208";
+            })
+#endif
+            .ConfigureFonts(fonts => {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             });
 
 #if ANDROID || IOS
