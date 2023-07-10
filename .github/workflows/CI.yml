@@ -20,7 +20,9 @@ jobs:
       run: |
         apt update
         apt install --yes sudo
-        sudo apt install --yes --no-install-recommends git npm
+        sudo apt install --yes --no-install-recommends git curl npm
+        sudo npm install --global n
+        sudo n lts
     # workaround for https://github.com/actions/runner/issues/2033
     - name: ownership workaround
       run: git config --global --add safe.directory '*'
@@ -28,7 +30,7 @@ jobs:
     - name: Check XAML style with prettier
       run: |
         sudo npm install --save-dev prettier @prettier/plugin-xml
-        ./node_modules/.bin/prettier --xml-whitespace-sensitivity ignore --tab-width 4 --prose-wrap preserve --write '**/*.xaml'
+        ./node_modules/.bin/prettier --plugin @prettier/plugin-xml --xml-whitespace-sensitivity ignore --tab-width 4 --prose-wrap preserve --write '**/*.xaml'
         git diff --exit-code
 
     - name: Install .NET6
